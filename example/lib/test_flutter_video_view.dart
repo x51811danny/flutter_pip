@@ -6,17 +6,17 @@ import 'package:flutter_float_window/flutter_video_player_progress_bar.dart';
 import 'package:flutter_float_window/flutter_video_player_view.dart';
 
 class TestFlutterVideoViewPage extends StatefulWidget {
-  const TestFlutterVideoViewPage({Key? key,this.isFromPip = false}) : super(key: key);
+  const TestFlutterVideoViewPage({Key? key, this.isFromPip = false}) : super(key: key);
   final bool isFromPip;
 
   @override
-  State<TestFlutterVideoViewPage> createState() =>
-      _TestFlutterVideoViewPageState();
+  State<TestFlutterVideoViewPage> createState() => _TestFlutterVideoViewPageState();
 }
 
 class _TestFlutterVideoViewPageState extends State<TestFlutterVideoViewPage> {
-  String videoUrlMp4 =
-      "https://v-cdn.zjol.com.cn/277001.mp4";
+  // String videoUrlMp4 =
+  //     "https://v-cdn.zjol.com.cn/277001.mp4";
+  String videoUrlMp4 = "https://stream-akamai.castr.com/5b9352dbda7b8c769937e459/live_2361c920455111ea85db6911fe397b9e/index.fmp4.m3u8";
   bool hasInitialized = false;
   double position = 0;
   double duration = 0;
@@ -26,41 +26,32 @@ class _TestFlutterVideoViewPageState extends State<TestFlutterVideoViewPage> {
   @override
   void initState() {
     super.initState();
-    if(!widget.isFromPip){
-    FlutterFloatWindow.destroyVideoPlayerIOS();
+    if (!widget.isFromPip) {
+      FlutterFloatWindow.destroyVideoPlayerIOS();
     }
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       final String videoUrl = videoUrlMp4;
       final String title = 'test';
       final String artist = 'testArtist';
-      final String coverUrl =
-          'https://t7.baidu.com/it/u=2621658848,3952322712&fm=193&f=GIF';
+      final String coverUrl = 'https://t7.baidu.com/it/u=2621658848,3952322712&fm=193&f=GIF';
       final int positionX = 0;
-      FlutterFloatWindow.initVideoPlayerIOS(
-          url: videoUrlMp4,
-          title: title,
-          artist: artist,
-          coverUrl: coverUrl,
-          position: positionX);
+      FlutterFloatWindow.initVideoPlayerIOS(url: videoUrlMp4, title: title, artist: artist, coverUrl: coverUrl, position: positionX);
       create = FlutterVideoPlayerEngine.create();
-      create?.setVideoPlayerEventHandler(
-          FlutterVideoPlayerEventHandler(onInitialized: () {
+      create?.setVideoPlayerEventHandler(FlutterVideoPlayerEventHandler(onInitialized: () {
         print("onInitialized");
         setState(() {
           hasInitialized = true;
         });
-      },onVideoProgress:
-        (double position, double duration, double bufferedStart,
-            double bufferedEnd) {
-      if (mounted) {
-        setState(() {
-          this.position = position;
-          this.duration = duration;
-          this.bufferedStart = bufferedStart;
-          this.bufferedEnd = bufferedEnd;
-        });
-      }
-    }));
+      }, onVideoProgress: (double position, double duration, double bufferedStart, double bufferedEnd) {
+        if (mounted) {
+          setState(() {
+            this.position = position;
+            this.duration = duration;
+            this.bufferedStart = bufferedStart;
+            this.bufferedEnd = bufferedEnd;
+          });
+        }
+      }));
       FlutterFloatWindow.initVideoPlayerListener(create!.mHandler!);
     });
   }
@@ -78,7 +69,7 @@ class _TestFlutterVideoViewPageState extends State<TestFlutterVideoViewPage> {
         title: Text('测试FlutterVideoPlayerView的使用'),
         leading: IconButton(
             onPressed: () {
-              FlutterFloatWindow.destroyVideoPlayerIOS();
+              // FlutterFloatWindow.destroyVideoPlayerIOS();
               Navigator.pop(context);
             },
             icon: Icon(Icons.arrow_back_ios)),
@@ -96,44 +87,44 @@ class _TestFlutterVideoViewPageState extends State<TestFlutterVideoViewPage> {
                       child: const FlutterVideoPlayerView(),
                     ),
                     Container(
-                      margin: EdgeInsets.symmetric(horizontal: 16,vertical: 10),
+                      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                       child: Column(
                         children: [
-                    FlutterVideoPlayerProgressBar(
-                        position: position,
-                        duration: duration,
-                        bufferedStart: bufferedStart,
-                        bufferedEnd: bufferedEnd,
-                        barHeight: 5,
-                        handleHeight: 16,
-                        drawShadow: false,onSeek: (barPosition){
-                          if(duration==0)return;
-                          var pos = barPosition*duration;
-                          setState(() {
-                            this.position = pos;
-                            this.bufferedStart = 0;
-                            this.bufferedEnd = 0;
-                          });
-                          print("pos===$pos,$barPosition");
-                          FlutterFloatWindow.seekVideoIOS({'position': pos.toInt()});
-                          
-                        },),
-                    Container(
-                      margin: EdgeInsets.only(top: 10),
-                      child: FlutterVideoPlayerProgressBar(
-                        position: position,
-                        duration: duration,
-                        bufferedStart: bufferedStart,
-                        bufferedEnd: bufferedEnd,
-                        barHeight: 5,
-                        handleHeight: 10,
-                        drawShadow: false,
-                        drawHandle: false,
-                        drawBuffer: false,
-                        colors: FlutterVideoPlayerProgressBarColors(playedColor: Colors.blue,backgroundColor: Colors.green),
-                      ),
-                    )
-
+                          FlutterVideoPlayerProgressBar(
+                            position: position,
+                            duration: duration,
+                            bufferedStart: bufferedStart,
+                            bufferedEnd: bufferedEnd,
+                            barHeight: 5,
+                            handleHeight: 16,
+                            drawShadow: false,
+                            onSeek: (barPosition) {
+                              if (duration == 0) return;
+                              var pos = barPosition * duration;
+                              setState(() {
+                                this.position = pos;
+                                this.bufferedStart = 0;
+                                this.bufferedEnd = 0;
+                              });
+                              print("pos===$pos,$barPosition");
+                              FlutterFloatWindow.seekVideoIOS({'position': pos.toInt()});
+                            },
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(top: 10),
+                            child: FlutterVideoPlayerProgressBar(
+                              position: position,
+                              duration: duration,
+                              bufferedStart: bufferedStart,
+                              bufferedEnd: bufferedEnd,
+                              barHeight: 5,
+                              handleHeight: 10,
+                              drawShadow: false,
+                              drawHandle: false,
+                              drawBuffer: false,
+                              colors: FlutterVideoPlayerProgressBarColors(playedColor: Colors.blue, backgroundColor: Colors.green),
+                            ),
+                          )
                         ],
                       ),
                     )
@@ -153,24 +144,34 @@ class _TestFlutterVideoViewPageState extends State<TestFlutterVideoViewPage> {
               ElevatedButton(
                   onPressed: () {
                     FlutterFloatWindow.startPipVideoIOS();
+                  },
+                  child: Text('畫中畫')),
+              ElevatedButton(
+                  onPressed: () {
+                    FlutterFloatWindow.startPipVideoIOS();
                     Navigator.pop(context);
                   },
-                  child: Text('弹出画中画')),
+                  child: Text('畫中畫(退出頁面)')),
               ElevatedButton(
                   onPressed: () {
                     FlutterFloatWindow.stopPipVideoIOS();
                   },
-                  child: Text('关闭画中画')),
+                  child: Text('結束畫中畫')),
+              ElevatedButton(
+                  onPressed: () {
+                    FlutterFloatWindow.destroyVideoPlayerIOS();
+                  },
+                  child: Text('銷毀播放器')),
               ElevatedButton(
                   onPressed: () {
                     FlutterFloatWindow.playVideoIOS();
                   },
-                  child: Text('视频播放')),
+                  child: Text('視頻播放')),
               ElevatedButton(
                   onPressed: () {
                     FlutterFloatWindow.pauseVideoIOS();
                   },
-                  child: Text('视频暂停')),
+                  child: Text('視頻暫停')),
               ElevatedButton(
                   onPressed: () async {
                     var x = await FlutterFloatWindow.getDurationAndPosition();
@@ -178,23 +179,23 @@ class _TestFlutterVideoViewPageState extends State<TestFlutterVideoViewPage> {
                     var duration = x['duration'];
                     print("position=$position,duration=$duration");
                   },
-                  child: Text('获取播放进度')),
+                  child: Text('getDurationAndPosition')),
               ElevatedButton(
                   onPressed: () {
                     FlutterFloatWindow.enablePipVideoIOS(false);
                   },
-                  child: Text('暂停使用画中画')),
+                  child: Text('停用畫中畫')),
               ElevatedButton(
                   onPressed: () {
                     FlutterFloatWindow.enablePipVideoIOS(true);
                   },
-                  child: Text('开启使用画中画')),
+                  child: Text('啟用畫中畫')),
               ElevatedButton(
                   onPressed: () async {
                     var x = await FlutterFloatWindow.isPlaying();
                     print("状态$x.");
                   },
-                  child: Text('播放状态')),
+                  child: Text('播放狀態')),
             ],
           )
         ],

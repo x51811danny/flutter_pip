@@ -145,8 +145,9 @@ public class FlutterVideoPlayerManager : NSObject{
         }
         else if keyPath == #keyPath(AVPlayerItem.status),let playerItem = object as? AVPlayerItem{
             if playerItem.status == .readyToPlay{
-                let duration = CMTimeGetSeconds(playerItem.duration)
-                self.mDuration = Int(duration)
+// by danny
+//                let duration = CMTimeGetSeconds(playerItem.duration)
+//                self.mDuration = Int(duration)
                 initRemoteCommand()
                 initNowPlayingCenter()
                 if let player = avPlayer{
@@ -159,9 +160,9 @@ public class FlutterVideoPlayerManager : NSObject{
                             let first = timeRanges.first as? CMTimeRange
                             let start = CMTimeGetSeconds(first?.start ?? CMTime.zero)
                             let end = CMTimeGetSeconds(first?.end ?? CMTime.zero)
-                            
-                            let args:[String : Any] = ["duration":duration,"position":currentTime,"bufferedStart":start,"bufferedEnd":end]
-                            self.postNotification(method: "onVideoProgress", args: args)
+                            // by danny
+//                            let args:[String : Any] = ["duration":duration,"position":currentTime,"bufferedStart":start,"bufferedEnd":end]
+//                            self.postNotification(method: "onVideoProgress", args: args)
                         }
                     }
                 }
