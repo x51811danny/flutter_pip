@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_float_window/flutter_float_window.dart';
 import 'package:flutter_float_window/flutter_video_player_engine.dart';
@@ -16,7 +18,7 @@ class TestFlutterVideoViewPage extends StatefulWidget {
 class _TestFlutterVideoViewPageState extends State<TestFlutterVideoViewPage> {
   // String videoUrlMp4 =
   //     "https://v-cdn.zjol.com.cn/277001.mp4";
-  String videoUrlMp4 = "https://stream-akamai.castr.com/5b9352dbda7b8c769937e459/live_2361c920455111ea85db6911fe397b9e/index.fmp4.m3u8";
+  String videoUrlMp4 = "https://qplay.qqqkqq.com/live/twitch_pgl_sg_ff.m3u8";
   bool hasInitialized = false;
   double position = 0;
   double duration = 0;
@@ -37,21 +39,29 @@ class _TestFlutterVideoViewPageState extends State<TestFlutterVideoViewPage> {
       final int positionX = 0;
       FlutterFloatWindow.initVideoPlayerIOS(url: videoUrlMp4, title: title, artist: artist, coverUrl: coverUrl, position: positionX);
       create = FlutterVideoPlayerEngine.create();
-      create?.setVideoPlayerEventHandler(FlutterVideoPlayerEventHandler(onInitialized: () {
-        print("onInitialized");
-        setState(() {
-          hasInitialized = true;
-        });
-      }, onVideoProgress: (double position, double duration, double bufferedStart, double bufferedEnd) {
-        if (mounted) {
-          setState(() {
-            this.position = position;
-            this.duration = duration;
-            this.bufferedStart = bufferedStart;
-            this.bufferedEnd = bufferedEnd;
-          });
-        }
-      }));
+      create?.setVideoPlayerEventHandler(FlutterVideoPlayerEventHandler(
+          onInitialized: () {
+            print("onInitialized");
+            setState(() {
+              hasInitialized = true;
+            });
+            WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+              if (widget.isFromPip) {
+                FlutterFloatWindow.playVideoIOS(); // FIXME
+              }
+            });
+          },
+          onVideoProgress: (double position, double duration, double bufferedStart, double bufferedEnd) {
+            if (mounted) {
+              setState(() {
+                this.position = position;
+                this.duration = duration;
+                this.bufferedStart = bufferedStart;
+                this.bufferedEnd = bufferedEnd;
+              });
+            }
+          },
+          onVideoPipFullScreenClicked: () {}));
       FlutterFloatWindow.initVideoPlayerListener(create!.mHandler!);
     });
   }

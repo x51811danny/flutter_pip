@@ -48,12 +48,12 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver, TickerProvid
   double hPadding = 16; //横轴边距
   double vPadding = 50; //竖轴边距
   // String videoUrl = "https://media.w3.org/2010/05/sintel/trailer.mp4";
-  String videoUrl = "https://stream-akamai.castr.com/5b9352dbda7b8c769937e459/live_2361c920455111ea85db6911fe397b9e/index.fmp4.m3u8";
+  String videoUrl = "https://qplay.qqqkqq.com/live/twitch_pgl_sg_ff.m3u8";
   String videoUrlMp4 = "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4";
   var scaleAlignment = Alignment.topLeft;
 
   ///设计小窗大小：4/5*width
-  ///
+  /// iOS
   _initFloatWindowMethodCallHandler() async {
     var channel = FlutterFloatWindow.channel;
     channel.setMethodCallHandler((call) async {
@@ -61,19 +61,19 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver, TickerProvid
       switch (call.method) {
         case "onFullScreenClick":
           // FlutterFloatWindow.pause();
-          overlayEntryX.remove();
+          debugPrint('_initFloatWindowMethodCallHandler onFullScreenClick');
           Navigator.of(context).push(CupertinoPageRoute(builder: (context) => TestPage()));
           break;
         case "onPictureInPictureWillStart":
           //在开始的时候修改app内的窗口为播放视频也的视频的位置，方便下次进来进入播放视频页面的位置
-          x = 0;
-          y = 80;
-          overlayEntryX.markNeedsBuild();
+          // x = 0;
+          // y = 80;
+          // overlayEntryX.markNeedsBuild();
           break;
         case "onCloseClick":
           //关闭的时候存储时间
           // FlutterFloatWindow.pause();
-          overlayEntryX.remove();
+          // overlayEntryX.remove();
           break;
         default:
           break;
@@ -122,180 +122,181 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver, TickerProvid
     });
     WidgetsBinding.instance?.addObserver(this);
     if (Platform.isIOS) {
-      // WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
-      //   _initFloatWindowMethodCallHandler();
-      //   overlayEntryX = OverlayEntry(builder: (context) {
-      //     var screenWidth = MediaQuery.of(context).size.width;
-      //     var screenHeight = MediaQuery.of(context).size.height;
-      //     return Positioned(
-      //         left: x,
-      //         top: y,
-      //         child: GestureDetector(
-      //             onTap: () {},
-      //             onDoubleTap: () {
-      //               if (isScaled) {
-      //                 _animationController.reverse();
-      //                 setState(() {
-      //                   isScaled = false;
-      //                 });
-      //               } else {
-      //                 _animationController.forward();
-      //                 setState(() {
-      //                   isScaled = true;
-      //                 });
-      //               }
-      //             },
-      //             onPanUpdate: (DragUpdateDetails details) {
-      //               x += details.delta.dx;
-      //               y += details.delta.dy;
-      //               print("x=$x,y=$y");
-      //               overlayEntryX.markNeedsBuild();
-      //             },
-      //             onPanEnd: (DragEndDetails details) {
-      //               var originWidth = (MediaQuery.of(context).size.width - 32);
-      //               var originHeight = originWidth * 9 / 16;
-      //               var width = isScaled ? originWidth * scaleFactor : originWidth;
-      //               var height = width * 9 / 16;
-      //               var centerX = x + width / 2;
-      //               var centerY = y + height / 2;
-      //               if (isScaled) {
-      //                 if (scaleAlignment == Alignment.topLeft) {
-      //                   centerX = x + width / 2;
-      //                   centerY = y + height / 2;
-      //                   print("走了这里 topLeft");
-      //                 }
-      //                 if (scaleAlignment == Alignment.topRight) {
-      //                   //由于缩放后，x,y轴的位置数值不变，所以需要手动计算出在屏幕上的centerX,centerY作为temp判断在屏幕上的用户看到的位置
-      //                   centerX = x + width / 2 + screenWidth * (1 - scaleFactor);
-      //                   centerY = y + height / 2;
-      //                 }
-      //                 if (scaleAlignment == Alignment.bottomLeft) {
-      //                   //bottom的时候
-      //                   //y轴坐标位置不变，处理坐标的时候，y值应该首先减去1.0时的y值大小 即(MediaQuery.of(context).size.width - 32)*9/16,然后再减去距离y轴的边距
-      //                   centerX = x + width / 2;
-      //                   centerY = y + height / 2;
-      //                   print("走了这里 bottomLeft");
-      //                 }
-      //                 if (scaleAlignment == Alignment.bottomRight) {
-      //                   centerX = x + width / 2 + screenWidth * (1 - scaleFactor);
-      //                   centerY = y + height / 2;
-      //                 }
-      //               }
-      //               print(
-      //                   "screenHeight=$screenHeight,y=$y,x=$x,alignment=$scaleAlignment,isScaled=$isScaled,centerX=$centerX,centerY=$centerY");
-      //               setState(() {
-      //                 if (centerX < screenWidth / 2 && centerY < screenHeight / 2) {
-      //                   scaleAlignment = Alignment.topLeft; //左上为基准
-      //                   print('走了这里 左上为基准');
-      //                   x = hPadding;
-      //                   if (y <= vPadding) y = vPadding;
-      //                 }
-      //                 if (centerX < screenWidth / 2 && centerY > screenHeight / 2) {
-      //                   print('走了这里 左下为基准');
-      //                   scaleAlignment = Alignment.bottomLeft;
-      //                   if (x <= hPadding) x = hPadding;
-      //                   if (y > screenHeight - originHeight - vPadding) {
-      //                     y = screenHeight - originHeight - vPadding;
-      //                   }
-      //                 }
-      //                 if (centerX >= screenWidth / 2 && centerY < screenHeight / 2) {
-      //                   scaleAlignment = Alignment.topRight; //右上为基准
-      //                   print('走了这里 右上为基准');
-      //                   x = isScaled ? screenWidth * scaleFactor - width : screenWidth - width - hPadding;
-      //                   if (y <= vPadding) y = vPadding;
-      //                 }
-      //                 if (centerX >= screenWidth / 2 && centerY > screenHeight / 2) {
-      //                   print('走了这里 右下为基准');
-      //                   scaleAlignment = Alignment.bottomRight;
-      //                   x = isScaled ? screenWidth * scaleFactor - width : screenWidth - width - hPadding;
-      //                   if (y > screenHeight - originHeight - vPadding) {
-      //                     y = screenHeight - originHeight - vPadding;
-      //                   }
-      //                 }
-      //               });
-      //               overlayEntryX.markNeedsBuild();
-      //             },
-      //             child: AnimatedBuilder(
-      //               animation: _animationController,
-      //               builder: (context, child) {
-      //                 return Transform.scale(
-      //                   scale: _animationScale.value,
-      //                   alignment: scaleAlignment,
-      //                   child: Material(
-      //                     color: Colors.transparent,
-      //                     child: Container(
-      //                       decoration: BoxDecoration(color: Colors.black, borderRadius: BorderRadius.circular(16)),
-      //                       width: MediaQuery.of(context).size.width - 32,
-      //                       height: (MediaQuery.of(context).size.width - 32) * 9 / 16,
-      //                       child: Stack(
-      //                         children: [
-      //                           FlutterFloatWindowView(
-      //                             videoUrl: videoUrl,
-      //                             title: "flutterWindow",
-      //                             artist: "videoTest",
-      //                             position: 10000,
-      //                             duration: 180000,
-      //                             coverUrl: "https://t7.baidu.com/it/u=2621658848,3952322712&fm=193&f=GIF",
-      //                             speed: 2.0,
-      //                           ),
-      //                           // Center(
-      //                           //   child: Row(
-      //                           //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-      //                           //     children: [
-      //                           //       IconButton(onPressed:(){
-      //                           //
-      //                           //       }, icon: Icon(Icons.arrow_back_ios,color: Colors.white,)),
-      //                           //       IconButton(onPressed:(){}, icon: Icon(Icons.fullscreen,color: Colors.white,)),
-      //                           //       IconButton(onPressed:(){}, icon: Icon(Icons.arrow_forward_ios,color: Colors.white,))
-      //                           //     ],
-      //                           //   ),
-      //                           // ),
-      //                           // Positioned(
-      //                           //   left: 0,
-      //                           //     top: 0,
-      //                           //     child: ElevatedButton(onPressed:(){
-      //                           //   FlutterFloatWindow.pause();
-      //                           //   overlayEntryX.remove();
-      //                           // } ,child: Text('关闭'),))
-      //                         ],
-      //                       ),
-      //                     ),
-      //                   ),
-      //                 );
-      //               },
-      //             )));
-      //   });
-      //   overlayEntry = OverlayEntry(builder: (context) {
-      //     debugPrint('hello');
-      //     return IgnorePointer(
-      //       child: Material(
-      //         color: Colors.transparent,
-      //         child:
-      //             // color: Colors.red.withOpacity(0.5),
-      //             ListView.builder(
-      //                 itemExtent: 100,
-      //                 itemCount: 10,
-      //                 itemBuilder: (context, index) {
-      //                   return buildRow();
-      //                 }),
-      //       ),
-      //     );
-      //     // return Positioned(
-      //     //     right: 0,
-      //     //     bottom: 0,
-      //     //     width: 200,
-      //     //     height: 200,
-      //     //     child: GestureDetector(
-      //     //         behavior: HitTestBehavior.translucent,
-      //     //         child: Material(
-      //     //             color: Colors.blue.withOpacity(0.1),
-      //     //             child: Container(
-      //     //               color: Colors.red.withOpacity(0.5),
-      //     //               child: Text('hello'),
-      //     //             ))));
-      //   });
-      //   Overlay.of(context)?.insert(overlayEntry);
-      // });
+      _initFloatWindowMethodCallHandler();
+      WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+        overlayEntry = OverlayEntry(builder: (context) {
+          debugPrint('hello');
+          return IgnorePointer(
+            child: Material(
+              color: Colors.transparent,
+              child:
+                  // color: Colors.red.withOpacity(0.5),
+                  ListView.builder(
+                      itemExtent: 100,
+                      itemCount: 10,
+                      itemBuilder: (context, index) {
+                        return buildRow();
+                      }),
+            ),
+          );
+          // return Positioned(
+          //     right: 0,
+          //     bottom: 0,
+          //     width: 200,
+          //     height: 200,
+          //     child: GestureDetector(
+          //         behavior: HitTestBehavior.translucent,
+          //         child: Material(
+          //             color: Colors.blue.withOpacity(0.1),
+          //             child: Container(
+          //               color: Colors.red.withOpacity(0.5),
+          //               child: Text('hello'),
+          //             ))));
+        });
+        // Overlay.of(context)?.insert(overlayEntry);
+      });
+    } else {
+      overlayEntryX = OverlayEntry(builder: (context) {
+        var screenWidth = MediaQuery.of(context).size.width;
+        var screenHeight = MediaQuery.of(context).size.height;
+        return Positioned(
+            left: x,
+            top: y,
+            child: GestureDetector(
+                onTap: () {},
+                onDoubleTap: () {
+                  if (isScaled) {
+                    _animationController.reverse();
+                    setState(() {
+                      isScaled = false;
+                    });
+                  } else {
+                    _animationController.forward();
+                    setState(() {
+                      isScaled = true;
+                    });
+                  }
+                },
+                onPanUpdate: (DragUpdateDetails details) {
+                  x += details.delta.dx;
+                  y += details.delta.dy;
+                  print("x=$x,y=$y");
+                  overlayEntryX.markNeedsBuild();
+                },
+                onPanEnd: (DragEndDetails details) {
+                  var originWidth = (MediaQuery.of(context).size.width - 32);
+                  var originHeight = originWidth * 9 / 16;
+                  var width = isScaled ? originWidth * scaleFactor : originWidth;
+                  var height = width * 9 / 16;
+                  var centerX = x + width / 2;
+                  var centerY = y + height / 2;
+                  if (isScaled) {
+                    if (scaleAlignment == Alignment.topLeft) {
+                      centerX = x + width / 2;
+                      centerY = y + height / 2;
+                      print("走了这里 topLeft");
+                    }
+                    if (scaleAlignment == Alignment.topRight) {
+                      //由于缩放后，x,y轴的位置数值不变，所以需要手动计算出在屏幕上的centerX,centerY作为temp判断在屏幕上的用户看到的位置
+                      centerX = x + width / 2 + screenWidth * (1 - scaleFactor);
+                      centerY = y + height / 2;
+                    }
+                    if (scaleAlignment == Alignment.bottomLeft) {
+                      //bottom的时候
+                      //y轴坐标位置不变，处理坐标的时候，y值应该首先减去1.0时的y值大小 即(MediaQuery.of(context).size.width - 32)*9/16,然后再减去距离y轴的边距
+                      centerX = x + width / 2;
+                      centerY = y + height / 2;
+                      print("走了这里 bottomLeft");
+                    }
+                    if (scaleAlignment == Alignment.bottomRight) {
+                      centerX = x + width / 2 + screenWidth * (1 - scaleFactor);
+                      centerY = y + height / 2;
+                    }
+                  }
+                  print(
+                      "screenHeight=$screenHeight,y=$y,x=$x,alignment=$scaleAlignment,isScaled=$isScaled,centerX=$centerX,centerY=$centerY");
+                  setState(() {
+                    if (centerX < screenWidth / 2 && centerY < screenHeight / 2) {
+                      scaleAlignment = Alignment.topLeft; //左上为基准
+                      print('走了这里 左上为基准');
+                      x = hPadding;
+                      if (y <= vPadding) y = vPadding;
+                    }
+                    if (centerX < screenWidth / 2 && centerY > screenHeight / 2) {
+                      print('走了这里 左下为基准');
+                      scaleAlignment = Alignment.bottomLeft;
+                      if (x <= hPadding) x = hPadding;
+                      if (y > screenHeight - originHeight - vPadding) {
+                        y = screenHeight - originHeight - vPadding;
+                      }
+                    }
+                    if (centerX >= screenWidth / 2 && centerY < screenHeight / 2) {
+                      scaleAlignment = Alignment.topRight; //右上为基准
+                      print('走了这里 右上为基准');
+                      x = isScaled ? screenWidth * scaleFactor - width : screenWidth - width - hPadding;
+                      if (y <= vPadding) y = vPadding;
+                    }
+                    if (centerX >= screenWidth / 2 && centerY > screenHeight / 2) {
+                      print('走了这里 右下为基准');
+                      scaleAlignment = Alignment.bottomRight;
+                      x = isScaled ? screenWidth * scaleFactor - width : screenWidth - width - hPadding;
+                      if (y > screenHeight - originHeight - vPadding) {
+                        y = screenHeight - originHeight - vPadding;
+                      }
+                    }
+                  });
+                  overlayEntryX.markNeedsBuild();
+                },
+                child: AnimatedBuilder(
+                  animation: _animationController,
+                  builder: (context, child) {
+                    return Transform.scale(
+                      scale: _animationScale.value,
+                      alignment: scaleAlignment,
+                      child: Material(
+                        color: Colors.transparent,
+                        child: Container(
+                          decoration: BoxDecoration(color: Colors.black, borderRadius: BorderRadius.circular(16)),
+                          width: MediaQuery.of(context).size.width - 32,
+                          height: (MediaQuery.of(context).size.width - 32) * 9 / 16,
+                          child: Stack(
+                            children: [
+                              FlutterFloatWindowView(
+                                videoUrl: videoUrl,
+                                title: "flutterWindow",
+                                artist: "videoTest",
+                                position: 10000,
+                                duration: 180000,
+                                coverUrl: "https://t7.baidu.com/it/u=2621658848,3952322712&fm=193&f=GIF",
+                                speed: 2.0,
+                              ),
+                              // Center(
+                              //   child: Row(
+                              //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              //     children: [
+                              //       IconButton(onPressed:(){
+                              //
+                              //       }, icon: Icon(Icons.arrow_back_ios,color: Colors.white,)),
+                              //       IconButton(onPressed:(){}, icon: Icon(Icons.fullscreen,color: Colors.white,)),
+                              //       IconButton(onPressed:(){}, icon: Icon(Icons.arrow_forward_ios,color: Colors.white,))
+                              //     ],
+                              //   ),
+                              // ),
+                              // Positioned(
+                              //   left: 0,
+                              //     top: 0,
+                              //     child: ElevatedButton(onPressed:(){
+                              //   FlutterFloatWindow.pause();
+                              //   overlayEntryX.remove();
+                              // } ,child: Text('关闭'),))
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                )));
+      });
     }
 
     super.initState();
@@ -321,6 +322,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver, TickerProvid
         case "onFullScreenClick":
           debugPrint('onFullScreenClick');
           FlutterFloatWindow.launchApp();
+          Navigator.of(context).push(CupertinoPageRoute(builder: (context) => TestPage()));
           break;
         case "onCloseClick":
           debugPrint('onCloseClick');
