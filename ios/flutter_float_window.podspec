@@ -15,8 +15,8 @@ A new Flutter plugin.
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.dependency 'AgoraRtcEngine_iOS', '4.2.1'
-  s.dependency 'AgoraIrisRTC_iOS', '4.2.1-build.1'
+  s.dependency 'AgoraRtcEngine_iOS', '4.5.2'
+  s.dependency 'AgoraIrisRTC_iOS', '4.5.2-build.1'
   s.platform = :ios, '13.0'
   s.libraries = 'stdc++'
 

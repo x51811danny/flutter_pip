@@ -1,38 +1,50 @@
 PODS:
-  - AgoraIrisRTC_iOS (4.2.1-build.1)
-  - AgoraRtcEngine_iOS (4.2.1):
-    - AgoraRtcEngine_iOS/AIAEC (= 4.2.1)
-    - AgoraRtcEngine_iOS/AINS (= 4.2.1)
-    - AgoraRtcEngine_iOS/AudioBeauty (= 4.2.1)
-    - AgoraRtcEngine_iOS/ClearVision (= 4.2.1)
-    - AgoraRtcEngine_iOS/ContentInspect (= 4.2.1)
-    - AgoraRtcEngine_iOS/DRM (= 4.2.1)
-    - AgoraRtcEngine_iOS/FaceDetection (= 4.2.1)
-    - AgoraRtcEngine_iOS/ReplayKit (= 4.2.1)
-    - AgoraRtcEngine_iOS/RtcBasic (= 4.2.1)
-    - AgoraRtcEngine_iOS/SpatialAudio (= 4.2.1)
-    - AgoraRtcEngine_iOS/VideoCodecDec (= 4.2.1)
-    - AgoraRtcEngine_iOS/VideoCodecEnc (= 4.2.1)
-    - AgoraRtcEngine_iOS/VirtualBackground (= 4.2.1)
-    - AgoraRtcEngine_iOS/VQA (= 4.2.1)
-  - AgoraRtcEngine_iOS/AIAEC (4.2.1)
-  - AgoraRtcEngine_iOS/AINS (4.2.1)
-  - AgoraRtcEngine_iOS/AudioBeauty (4.2.1)
-  - AgoraRtcEngine_iOS/ClearVision (4.2.1)
-  - AgoraRtcEngine_iOS/ContentInspect (4.2.1)
-  - AgoraRtcEngine_iOS/DRM (4.2.1)
-  - AgoraRtcEngine_iOS/FaceDetection (4.2.1)
-  - AgoraRtcEngine_iOS/ReplayKit (4.2.1)
-  - AgoraRtcEngine_iOS/RtcBasic (4.2.1)
-  - AgoraRtcEngine_iOS/SpatialAudio (4.2.1)
-  - AgoraRtcEngine_iOS/VideoCodecDec (4.2.1)
-  - AgoraRtcEngine_iOS/VideoCodecEnc (4.2.1)
-  - AgoraRtcEngine_iOS/VirtualBackground (4.2.1)
-  - AgoraRtcEngine_iOS/VQA (4.2.1)
+  - AgoraInfra_iOS (1.2.13.1)
+  - AgoraIrisRTC_iOS (4.5.2-build.1)
+  - AgoraRtcEngine_iOS (4.5.2):
+    - AgoraRtcEngine_iOS/AIAEC (= 4.5.2)
+    - AgoraRtcEngine_iOS/AIAECLL (= 4.5.2)
+    - AgoraRtcEngine_iOS/AINS (= 4.5.2)
+    - AgoraRtcEngine_iOS/AINSLL (= 4.5.2)
+    - AgoraRtcEngine_iOS/AudioBeauty (= 4.5.2)
+    - AgoraRtcEngine_iOS/ClearVision (= 4.5.2)
+    - AgoraRtcEngine_iOS/ContentInspect (= 4.5.2)
+    - AgoraRtcEngine_iOS/FaceCapture (= 4.5.2)
+    - AgoraRtcEngine_iOS/FaceDetection (= 4.5.2)
+    - AgoraRtcEngine_iOS/LipSync (= 4.5.2)
+    - AgoraRtcEngine_iOS/ReplayKit (= 4.5.2)
+    - AgoraRtcEngine_iOS/RtcBasic (= 4.5.2)
+    - AgoraRtcEngine_iOS/SpatialAudio (= 4.5.2)
+    - AgoraRtcEngine_iOS/VideoAv1CodecDec (= 4.5.2)
+    - AgoraRtcEngine_iOS/VideoAv1CodecEnc (= 4.5.2)
+    - AgoraRtcEngine_iOS/VideoCodecDec (= 4.5.2)
+    - AgoraRtcEngine_iOS/VideoCodecEnc (= 4.5.2)
+    - AgoraRtcEngine_iOS/VirtualBackground (= 4.5.2)
+    - AgoraRtcEngine_iOS/VQA (= 4.5.2)
+  - AgoraRtcEngine_iOS/AIAEC (4.5.2)
+  - AgoraRtcEngine_iOS/AIAECLL (4.5.2)
+  - AgoraRtcEngine_iOS/AINS (4.5.2)
+  - AgoraRtcEngine_iOS/AINSLL (4.5.2)
+  - AgoraRtcEngine_iOS/AudioBeauty (4.5.2)
+  - AgoraRtcEngine_iOS/ClearVision (4.5.2)
+  - AgoraRtcEngine_iOS/ContentInspect (4.5.2)
+  - AgoraRtcEngine_iOS/FaceCapture (4.5.2)
+  - AgoraRtcEngine_iOS/FaceDetection (4.5.2)
+  - AgoraRtcEngine_iOS/LipSync (4.5.2)
+  - AgoraRtcEngine_iOS/ReplayKit (4.5.2)
+  - AgoraRtcEngine_iOS/RtcBasic (4.5.2):
+    - AgoraInfra_iOS (= 1.2.13.1)
+  - AgoraRtcEngine_iOS/SpatialAudio (4.5.2)
+  - AgoraRtcEngine_iOS/VideoAv1CodecDec (4.5.2)
+  - AgoraRtcEngine_iOS/VideoAv1CodecEnc (4.5.2)
+  - AgoraRtcEngine_iOS/VideoCodecDec (4.5.2)
+  - AgoraRtcEngine_iOS/VideoCodecEnc (4.5.2)
+  - AgoraRtcEngine_iOS/VirtualBackground (4.5.2)
+  - AgoraRtcEngine_iOS/VQA (4.5.2)
   - Flutter (1.0.0)
   - flutter_float_window (0.2.2):
-    - AgoraIrisRTC_iOS (= 4.2.1-build.1)
-    - AgoraRtcEngine_iOS (= 4.2.1)
+    - AgoraIrisRTC_iOS (= 4.5.2-build.1)
+    - AgoraRtcEngine_iOS (= 4.5.2)
     - Flutter
 
 DEPENDENCIES:
@@ -41,6 +53,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - AgoraInfra_iOS
     - AgoraIrisRTC_iOS
     - AgoraRtcEngine_iOS
 
@@ -51,11 +64,12 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_float_window/ios"
 
 SPEC CHECKSUMS:
-  AgoraIrisRTC_iOS: 4c6cb9df772dacba4e0dccb00178378454d03fde
-  AgoraRtcEngine_iOS: bbbacbf4797a6f85532c6023b72c4d66f2b49227
+  AgoraInfra_iOS: 3691b2b277a1712a35ae96de25af319de0d73d08
+  AgoraIrisRTC_iOS: eab58c126439adf5ec99632828a558ea216860da
+  AgoraRtcEngine_iOS: 97e2398a2addda9057815a2a583a658e36796ff6
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
-  flutter_float_window: b75d26c1db21fc9fba284d7f387ab1e199e60b61
+  flutter_float_window: e713f7101012fe7d3b5a9ecd31ebfd70f47b5e26
 
 PODFILE CHECKSUM: 0dbd5a87e0ace00c9610d2037ac22083a01f861d
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.16.2
