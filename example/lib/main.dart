@@ -322,7 +322,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver, TickerProvid
         case "onFullScreenClick":
           debugPrint('onFullScreenClick');
           FlutterFloatWindow.launchApp();
-          Navigator.of(context).push(CupertinoPageRoute(builder: (context) => TestPage()));
+          Navigator.of(context).push(CupertinoPageRoute(builder: (context) => TestFlutterVideoViewPage()));
           break;
         case "onCloseClick":
           debugPrint('onCloseClick');
@@ -386,12 +386,11 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver, TickerProvid
                           spacing: 10,
                           children: [
                             ElevatedButton(
-                              onPressed: () {
-                                Map<String, dynamic> params = {"position": 5000};
-                                FlutterFloatWindow.seekTo(params);
-                              },
-                              child: const Text("test seekTo"),
-                            ),
+                                onPressed: () async {
+                                  NavigationUtil.getInstance()
+                                      .pushPage(context, 'testFlutterVideoView', widget: TestFlutterVideoViewPage());
+                                },
+                                child: Text('testFlutterVideoView')),
                             ElevatedButton(
                                 onPressed: () {
                                   Map<String, String> params = {

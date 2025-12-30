@@ -590,7 +590,7 @@ class FloatWindowLiveService : Service() {
                 override fun onSingleTapUp(e: MotionEvent): Boolean = false
 
                 override fun onScroll(
-                    e1: MotionEvent,
+                    e1: MotionEvent?,
                     e2: MotionEvent,
                     distanceX: Float,
                     distanceY: Float
@@ -609,7 +609,7 @@ class FloatWindowLiveService : Service() {
                 }
 
                 override fun onFling(
-                    e1: MotionEvent,
+                    e1: MotionEvent?,
                     e2: MotionEvent,
                     velocityX: Float,
                     velocityY: Float

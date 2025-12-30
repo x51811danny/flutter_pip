@@ -684,7 +684,7 @@ class FloatWindowService : Service() {
                 override fun onSingleTapUp(e: MotionEvent): Boolean = false
 
                 override fun onScroll(
-                    e1: MotionEvent,
+                    e1: MotionEvent?,
                     e2: MotionEvent,
                     distanceX: Float,
                     distanceY: Float
@@ -701,7 +701,7 @@ class FloatWindowService : Service() {
                         "!!!!!!!!===distanceX=$distanceX,distanceY = $distanceY,lastX=$lastX," +
                                 "lastY=$lastY,wX=${wmParams.x},wY=${wmParams.y},$mWidth,$mHeight,sW=$mScreenWidth"
                     )
-                    Log.d(javaClass.name, "e1=====${e1.action},e2===${e2.action}")
+                    // Log.d(javaClass.name, "e1=====${e1.action},e2===${e2.action}")
                     return true
                 }
 
@@ -710,7 +710,7 @@ class FloatWindowService : Service() {
                 }
 
                 override fun onFling(
-                    e1: MotionEvent,
+                    e1: MotionEvent?,
                     e2: MotionEvent,
                     velocityX: Float,
                     velocityY: Float
